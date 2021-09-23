@@ -1,4 +1,7 @@
-class Hunter extends LivingCreature{
+var LivingCreature = require("./livingCreature");
+var random = require("./random");
+
+module.exports = class Hunter extends LivingCreature{
     constructor(x, y) {
         super(x,y);
         this.energy = 60;
@@ -27,6 +30,9 @@ class Hunter extends LivingCreature{
     }
     kill() {
         this.getNewDirections();
+        let emptyCells = this.chooseCell(0);
+        let newCell = random(emptyCells);
+
         let newCell = random(this.chooseCell(3).concat(this.chooseCell(2).concat(this.chooseCell(1))));
         if (newCell) {
             this.energy += 20;
