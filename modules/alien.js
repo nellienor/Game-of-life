@@ -1,4 +1,9 @@
-class Alien extends LivingCreature{
+var LivingCreature = require("./livingCreature");
+var GrassEater = require("./grasseater");
+var random = require("./random");
+
+
+module.exports = class Alien extends LivingCreature{
     constructor(x, y) {
         super(x,y);
         this.energy = 60;
@@ -27,7 +32,9 @@ class Alien extends LivingCreature{
     }
     kill() {
         this.getNewDirections();
-        let newCell = random(this.chooseCell(3));
+        let emptyCells = this.chooseCell(3);
+        let newCell = random(emptyCells);
+
         if (newCell) {
             this.energy += 40;
             let x = newCell[0];
@@ -57,7 +64,9 @@ class Alien extends LivingCreature{
     
     move(){
         this.energy--;
-        let newCell = random(this.chooseCell(0).concat(this.chooseCell(1)));
+        let emptyCells = this.chooseCell(0);
+        let emptyCells1 = this.chooseCell(1);
+        let newCell = random(emptyCells.concat(emptyCells1));
         if (newCell) {
             let x = newCell[0];
             let y = newCell[1];

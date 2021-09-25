@@ -15,6 +15,18 @@ module.exports = class Grass extends LivingCreature {
             grassArr.push(grass);
             this.life = 0;
         }
+        if (weath == "winter") {
+            this.life -= 3;
+        }
+        if (weath == "spring") {
+            this.life += 4;
+        }
+        if (weath == "summer") {
+            this.life += 2;
+        }
+        if (weath == "autumn") {
+            this.life -= 2;
+    }
     }
 }
 

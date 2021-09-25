@@ -30,10 +30,12 @@ module.exports = class Hunter extends LivingCreature{
     }
     kill() {
         this.getNewDirections();
-        let emptyCells = this.chooseCell(0);
-        let newCell = random(emptyCells);
+        let emptyCells1 = this.chooseCell(1);
+        let emptyCells2 = this.chooseCell(2);
+        let emptyCells3 = this.chooseCell(3);
+        let newCell = random(emptyCells3.concat(emptyCells2).concat(emptyCells1));
 
-        let newCell = random(this.chooseCell(3).concat(this.chooseCell(2).concat(this.chooseCell(1))));
+       
         if (newCell) {
             this.energy += 20;
             let x = newCell[0];
@@ -71,7 +73,10 @@ module.exports = class Hunter extends LivingCreature{
     
     move(){
         this.energy-=2;
-        let newCell = random(this.chooseCell(0).concat(this.chooseCell(1)));
+        let emptyCells = this.chooseCell(0);
+        let emptyCells1 = this.chooseCell(1);
+        let newCell = random(emptyCells.concat(emptyCells1));
+
         if (newCell) {
             let x = newCell[0];
             let y = newCell[1];

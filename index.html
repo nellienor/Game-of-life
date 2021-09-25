@@ -27,7 +27,7 @@
     <table class="table table-hover">
         <thead>
             <tr>
-                <h1>Ծրագրավորում II Երևան</h1>
+                <h1>Ծրագրավորում III Երևան</h1>
             </tr>
             <tr>
                 <h1>Նելլի Օրդյան</h1>
@@ -36,6 +36,7 @@
                 <th scope="col">#</th>
                 <th scope="col">Գույն</th>
                 <th scope="col">Նկարագրություն</th>
+                <th scope="col">Ստեղծվել է</th>
             </tr>
         </thead>
         <tbody>
@@ -43,44 +44,43 @@
                 <th scope="row">1</th>
                 <td scope="row" style="background-color:green;"></td>
                 <td>Կանաչը խոտն է, որը բազմանում է 10 ցիկլը մեկ,մահանում է երբ նրան ուտում է խոտակերը, կամ նրան կոխկրտում է  որսորդը:</td>
+                <td id="grassCount"></td>
             </tr>
             <tr>
                 <th scope="row">2</th>
                 <td scope="row" style="background-color:orange;"></td>
                 <td>Դեղինը խոտակերն է, որը բազմանում է 5 հատ խոտ ուտելուց հետո և մահանում է 30 հատ չուտելուց հետո, կամ
                     երբ նրան ուտում է գիշատիչը,կամ երբ նրան սպանում է որսորդը:</td>
+                    <td id="grassEaterCount"></td>
 			</tr>
 			<tr>
                 <th scope="row">3</th>
                 <td scope="row" style="background-color:#87700C;"></td>
                 <td>Դարչնագույնը գիշատիչն է, որը բազմանում է 1 հատ խոտակեր ուտելուց հետո և մահանում է 30 հատ չուտելուց հետո, կամ նրան սպանում է որսորդը:
-				</td>
+                </td>
+                <td id="predatorCount"></td>
 			</tr>
 			
 			<tr>
                 <th scope="row">4</th>
                 <td scope="row" style="background-color:#B74D11;"></td>
                 <td> Կարմիրը որսորդն է, որը սպանում է խոտակերին և գիշատիչին, և մահանում է 30 հատ խոտակեր կամ գիշատիչ չսպանելուց հետո:
-				</td>
+                </td>
+                <td id="hunterCount"></td>
 			</tr>
 			<tr>
                 <th scope="row">5</th>
                 <td scope="row" style="background-color:#15438E;"></td>
                 <td> Կապույտն այլմոլորակային է, որը սպանում է  գիշատիչին, և նրա փոխարեն ստեղծում է խոտակեր, մահանում  է 60 հատ  գիշատիչ չսպանելուց հետո:
-				</td>
+                </td>
+                <td id="alienCount"></td>
 			</tr>
         </tbody>
     </table>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.14/p5.js"></script>
+    
     <script src="p5.js"></script>
     <script src="/socket.io/socket.io.js"></script>
-    <script src="modules/livingCreature.js"></script>
-    <script src="modules/grass.js"></script>
-    <script src="modules/grasseater.js"></script>
-    <script src="modules/predator.js"></script>
-    <script src="modules/hunter.js"></script>
-    <script src="modules/alien.js"></script>
-   <script src="script.js"></script>
+    <script src="script.js"></script>
 
 </body>
 

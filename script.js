@@ -1,130 +1,103 @@
-let matrix = [];
-let side = 10;
-let grassArr = [];
-let grassEaterArr = [];
-let predatorArr = [];
-let hunterArr = [];
-let alienArr = [];
-
-
-
 function setup() {
-    matrixGenerator(50, 1500, 50, 15,3,1);
-    createCanvas(matrix[0].length * side, matrix.length * side);
-    background('#BFBFBF');
-    frameRate(5);
-    noStroke()
 
-    function matrixGenerator(matrixSize, grassCount, grassEaterCount, predatorCount, hunterCount,alienCount) {
-        for (let index = 0; index < matrixSize; index++) {
-            matrix[index] = [];
-            for (let i = 0; i < matrixSize; i++) {
-                matrix[index][i] = 0;
-            }
-        }
-        for (let index = 0; index < grassCount; index++) {
-            let x = Math.floor(random(0, matrixSize));
-            let y = Math.floor(random(0, matrixSize));
-            matrix[y][x] = 1;
-        }
-        for (let index = 0; index < grassEaterCount; index++) {
-            let x = Math.floor(random(0, matrixSize));
-            let y = Math.floor(random(0, matrixSize));
-            matrix[y][x] = 2;
-        }
-        for (let index = 0; index < predatorCount; index++) {
-            let x = Math.floor(random(0, matrixSize));
-            let y = Math.floor(random(0, matrixSize));
-            matrix[y][x] = 3;
-        }
-        for (let index = 0; index < hunterCount; index++) {
-            let x = Math.floor(random(0, matrixSize));
-            let y = Math.floor(random(0, matrixSize));
-            matrix[y][x] = 4;
-        }
-        for (let index = 0; index < alienCount; index++) {
-            let x = Math.floor(random(0, matrixSize));
-            let y = Math.floor(random(0, matrixSize));
-            matrix[y][x] = 5;
-        }
-    }
+    let socket = io();
 
-    for (let y = 0; y < matrix.length; y++) {
-        for (let x = 0; x < matrix[y].length; x++) {
-            if (matrix[y][x] == 1) {
-                let grass = new Grass(x, y);
-                grassArr.push(grass);
-            }
-            else if (matrix[y][x] == 2) {
-                let grassEater = new GrassEater(x, y);
-                grassEaterArr.push(grassEater);
-            }
-            else if (matrix[y][x] == 3) {
-                let predator = new Predator(x, y);
-                predatorArr.push(predator);
-            }
-            else if (matrix[y][x] == 4) {
-                let hunter = new Hunter(x, y);
-                hunterArr.push(hunter);
-            }
-            else if (matrix[y][x] == 5) {
-                let alien = new Alien(x, y);
-                alienArr.push(alien);
-            }
-        }
-    }
+    let side = 10;
 
-}
+    let matrix = [];
 
-function draw() {
 
-    for (let y = 0; y < matrix.length; y++) {
-        const element = matrix[y];
-        for (let x = 0; x < element.length; x++) {
+    let grassCountElement = document.getElementById('grassCount');
+    let grassEaterCountElement = document.getElementById('grassEaterCount');
+    let predatorCountElement = document.getElementById('predatorCount');
+    let hunterCountElement = document.getElementById('hunterCount');
+    let alienCountElement = document.getElementById('alienCount');
 
-            if (matrix[y][x] == 1) {
-                fill('#3C8A41');
-                rect(x * side, y * side, side, side,side/4)
-            }
-            else if (matrix[y][x] == 2) {
-                fill('#E1B200');
-                rect(x * side, y * side, side, side,side/4)
+    socket.on("data", drawCreatures);
+
+    socket.on("weather", function (data1) {
+        weath = data1;
+    })
+    weath = "spring";
+
+    function drawCreatures(data) {
+
+        matrix = data.matrix;
+        grassCountElement.innerText = data.grassCounter;
+        grassEaterCountElement.innerText = data.grasseaterCounter;
+        predatorCountElement.innerText = data.predatorCounter;
+        hunterCountElement.innerText = data.hunterCounter;
+        alienCountElement.innerText = data.alienCounter;
+
+        createCanvas(matrix[0].length * side, matrix.length * side);
+        background('#D3D3D3');
+        noStroke()
+        
+        
+            for (let y = 0; y < matrix.length; y++) {
+                const element = matrix[y];
+                for (let x = 0; x < element.length; x++) {
+                  
+                    if (matrix[y][x] == 1) {
+                        if(weath == "summer") {
+                            fill('#3C8A41');
+                        }else if (weath == "autumn") {
+                            fill("#012A04");
+                        }else if (weath == "winter") {
+                            fill("#EEF7EF");
+                        }else if (weath == "spring") {
+                            fill("#29BB3A");
+                        }
+                        rect(x * side, y * side, side, side,side/4)
+                    }
+                    else if (matrix[y][x] == 2) {
+                        fill('#E1B200');
+                        rect(x * side, y * side, side, side,side/4)
+                        
+                    }
+                    else if (matrix[y][x] == 3) {
+                        fill('#7E6400');
+                        rect(x * side, y * side, side, side,side/4)
+                    }
+                    else if (matrix[y][x] == 4) {
+                        fill('#B74D11');
+                        ellipse(x * side, y * side, side+4, side+4)
+                    
+                    }
+                    else if (matrix[y][x] == 5) {
+                        fill('#15438E');
+                        ellipse(x * side, y * side, side+8, side+5)
+                    
+                    }
+                    else {
+                        fill('#D3D3D3');
+                        rect(x * side, y * side, side, side,side/4)
+                    }
                 
+                }
             }
-            else if (matrix[y][x] == 3) {
-                fill('#7E6400');
-                rect(x * side, y * side, side, side,side/4)
-            }
-            else if (matrix[y][x] == 4) {
-                fill('#B74D11');
-                ellipse(x * side, y * side, side+4, side+4)
-              
-            }
-            else if (matrix[y][x] == 5) {
-                fill('#15438E');
-                ellipse(x * side, y * side, side+8, side+5)
-              
-            }
-            else {
-                fill('#BFBFBF');
-                rect(x * side, y * side, side, side,side/4)
-            }
-           
         }
     }
-    for (let index = 0; index < grassArr.length; index++) {
-        grassArr[index].mul();
-    }
-    for (let index = 0; index < grassEaterArr.length; index++) {
-        grassEaterArr[index].eat();
-    }
-    for (let index = 0; index < predatorArr.length; index++) {
-        predatorArr[index].eat();
-    }
-    for (let index = 0; index <  hunterArr.length; index++) {
-        hunterArr[index].kill();
-    }
-    for (let index = 0; index <  alienArr.length; index++) {
-        alienArr[index].kill();
-    }
-}
+
+   /* canva.addEventListener('mousedown', function(e) {
+        // Get the target
+        const target = e.target;
+    
+        // Get the bounding rectangle of target
+        const rect = target.getBoundingClientRect();
+    
+        // Mouse position
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        console.log(x+","+y);
+    });
+  
+
+   /* var pos = document.getElementById('position');
+    function printMousePos(event) {
+        pos.innerText =
+          "clientX: " + event.clientX +
+          " - clientY: " + event.clientY;
+      }
+      
+      document.addEventListener("click", printMousePos);*/
