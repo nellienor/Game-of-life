@@ -14,7 +14,6 @@ predatorArr = [];
 hunterArr = [];
 alienArr = [];
 
-
 weath = "spring";
 
 //matrixgenerator
@@ -131,8 +130,7 @@ io.sockets.emit("data",sendData);
 
 setInterval(game,1000);
 
-////
-
+//weather
 function weather() {
     if (weath == "winter") {
         weath = "spring"
@@ -146,9 +144,25 @@ function weather() {
     else if (weath == "autumn") {
         weath = "winter"
     }
-    io.sockets.emit('weather', weath)
+    io.sockets.emit("weather", weath)
 }
 setInterval(weather, 5000);
+
+
+/*function erase() {
+    grassArr = [];
+    grassEaterArr = []
+    for (var y = 0; y < matrix.length; y++) {
+        for (var x = 0; x < matrix[y].length; x++) {
+            matrix[y][x] = 0;
+        }
+    }
+    //io.sockets.emit("send matrix", matrix);
+}
+io.on('connection',function(socket){
+    socket.on("erase",erase);
+})*/
+
 
 var statistics = {};
 
@@ -163,4 +177,4 @@ setInterval(function() {
     })
 },1000)
 
-////
+
