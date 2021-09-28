@@ -12,14 +12,46 @@
         div {
             display: inline-block;
         }
-        h1 {
+        h1,h3 {
             padding: 20px;
             text-align: center;
+        }
+        h3{
+            color: gray;
+            padding: 0;
         }
         body {
             font-family: 'Noto Sans', sans-serif !important;
         }
-    </style>
+        .buttons{
+           display: flex;
+           justify-content: center;
+           margin: 20px;
+            
+        }
+        button{
+            display: flex;
+            width: 200px;
+            padding: 5px;
+            background-color: white;
+            margin-left: 20px;
+            justify-content: center;
+            align-items: center;
+            border-radius: 10px;
+            transition: all .2s ease-in-out ;
+        }
+        button:hover {
+            background-color: #F7F6F6;
+        }
+        #predator{
+            border:2px solid #7E6400;
+        }
+        #hunter{
+            border:2px solid #B74D11;
+        }
+        #alien{
+            border:2px solid #15438E;
+        }
     </style>
 </head>
 
@@ -77,9 +109,12 @@
 			</tr>
         </tbody>
     </table>
-    <div>
-        <button onclick="erase()">Erase canvas</button>
+    <div class="buttons">
+        <button onclick="addPredator()" id="predator">Ավելացնել գիշատիչ</button>
+        <button onclick="addHunter()"id="hunter"> Ավելացնել որսորդ</button>
+        <button onclick="addAlien()"id="alien">Ավելացնել այլմոլորակային</button>
     </div>
+    <h3 id="weather"></h3>
     <script src="p5.js"></script>
     <script src="/socket.io/socket.io.js"></script>
     <script src="script.js"></script>

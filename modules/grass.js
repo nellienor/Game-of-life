@@ -19,7 +19,7 @@ module.exports = class Grass extends LivingCreature {
             this.life -= 3;
         }
         if (weath == "spring") {
-            this.life += 4;
+            this.life += 6;
         }
         if (weath == "summer") {
             this.life += 2;

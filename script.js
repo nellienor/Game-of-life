@@ -1,7 +1,7 @@
-
+let socket = io();
 function setup() {
 
-    let socket = io();
+    
 
     let side = 10;
 
@@ -13,8 +13,8 @@ function setup() {
     let predatorCountElement = document.getElementById('predatorCount');
     let hunterCountElement = document.getElementById('hunterCount');
     let alienCountElement = document.getElementById('alienCount');
-
-    //let button = document.getElementById('button');
+    let weathernameElement = document.getElementById('weather');
+   
 
     socket.on("weather", function(data){
         weath = data;
@@ -29,6 +29,7 @@ function drawCreatures(data) {
     predatorCountElement.innerText = data.predatorCounter;
     hunterCountElement.innerText = data.hunterCounter;
     alienCountElement.innerText = data.alienCounter;
+    weathernameElement.innerText = "The weather is "+ data.weathername;
 
     createCanvas(matrix[0].length * side, matrix.length * side);
     background('#D3D3D3');
@@ -81,43 +82,15 @@ function drawCreatures(data) {
  
 }
 
+function addPredator() {
+    socket.emit("add predator")
+}
+function addHunter() {
+    socket.emit("add hunter")
+}
 
-//function erase(){
-//    socket.emit("erase");}
-
-
-/*function bodyClick(evt){
-    var x = evt.pageX;
-    var y = evt.pageY;
-    console.log("Clicked at X: " + evt.pageX + ", Y: " + evt.pageY);
-    
- }
- window.onclick = bodyClick;
- */
-
-  
-
-   /* var pos = document.getElementById('position');
-    function printMousePos(event) {
-        pos.innerText =
-          "clientX: " + event.clientX +
-          " - clientY: " + event.clientY;
-      }
-      
-      document.addEventListener("click", printMousePos);*/
+function addAlien() {
+    socket.emit("add alien")
+}
 
 
-    /*     
-   window.addEventListener('mousedown', function(e) {
-    // Get the target
-    const target = e.target;
-
-    // Get the bounding rectangle of target
-    const rect = target.getBoundingClientRect();
-
-    // Mouse position
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    console.log(x+","+y);
-     
-});*/

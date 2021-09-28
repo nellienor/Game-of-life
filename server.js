@@ -122,7 +122,8 @@ let sendData = {
    grasseaterCounter: grassEaterArr.length,
    predatorCounter: predatorArr.length,
    hunterCounter: hunterArr.length,
-   alienCounter: alienArr.length
+   alienCounter: alienArr.length,
+   weathername: weath
 }
 
 io.sockets.emit("data",sendData);
@@ -149,19 +150,51 @@ function weather() {
 setInterval(weather, 5000);
 
 
-/*function erase() {
-    grassArr = [];
-    grassEaterArr = []
-    for (var y = 0; y < matrix.length; y++) {
-        for (var x = 0; x < matrix[y].length; x++) {
-            matrix[y][x] = 0;
+//
+function addPredator() {
+    for (var i = 0; i < 4; i++) {
+    var x = Math.floor(Math.random() * matrix[0].length)
+    var y = Math.floor(Math.random() * matrix.length)
+        if (matrix[y][x] == 0) {
+            matrix[y][x] = 3
+            let pr = new Predator(x, y);
+               predatorArr.push(pr);
         }
     }
     //io.sockets.emit("send matrix", matrix);
 }
-io.on('connection',function(socket){
-    socket.on("erase",erase);
-})*/
+//
+function addAlien() {
+    for (var i = 0; i < 2; i++) {
+    var x = Math.floor(Math.random() * matrix[0].length)
+    var y = Math.floor(Math.random() * matrix.length)
+        if (matrix[y][x] == 0) {
+            matrix[y][x] = 5
+            let al = new Alien(x, y);
+               alienArr.push(al);
+        }
+    }
+    //io.sockets.emit("send matrix", matrix);
+}
+//
+function addHunter() {
+    for (var i = 0; i < 2; i++) {
+    var x = Math.floor(Math.random() * matrix[0].length)
+    var y = Math.floor(Math.random() * matrix.length)
+        if (matrix[y][x] == 0) {
+            matrix[y][x] = 4
+            let hunt = new Hunter(x, y);
+               hunterArr.push(hunt);
+        }
+    }
+    //io.sockets.emit("send matrix", matrix);
+}
+//
+io.on('connection', function (socket) {
+    socket.on("add predator", addPredator);
+    socket.on("add hunter", addHunter);
+    socket.on("add alien", addAlien);
+});
 
 
 var statistics = {};
