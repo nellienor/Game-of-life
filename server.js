@@ -133,10 +133,7 @@ setInterval(game,1000);
 
 //weather
 function weather() {
-    if (weath == "winter") {
-        weath = "spring"
-    }
-    else if (weath == "spring") {
+    if (weath == "spring") {
         weath = "summer"
     }
     else if (weath == "summer") {
@@ -145,12 +142,15 @@ function weather() {
     else if (weath == "autumn") {
         weath = "winter"
     }
+    else if (weath == "winter") {
+        weath = "spring"
+    }
     io.sockets.emit("weather", weath)
 }
 setInterval(weather, 5000);
 
 
-//
+//add new predator
 function addPredator() {
     for (var i = 0; i < 4; i++) {
     var x = Math.floor(Math.random() * matrix[0].length)
@@ -161,22 +161,8 @@ function addPredator() {
                predatorArr.push(pr);
         }
     }
-    //io.sockets.emit("send matrix", matrix);
 }
-//
-function addAlien() {
-    for (var i = 0; i < 2; i++) {
-    var x = Math.floor(Math.random() * matrix[0].length)
-    var y = Math.floor(Math.random() * matrix.length)
-        if (matrix[y][x] == 0) {
-            matrix[y][x] = 5
-            let al = new Alien(x, y);
-               alienArr.push(al);
-        }
-    }
-    //io.sockets.emit("send matrix", matrix);
-}
-//
+//add new hunter
 function addHunter() {
     for (var i = 0; i < 2; i++) {
     var x = Math.floor(Math.random() * matrix[0].length)
@@ -187,16 +173,36 @@ function addHunter() {
                hunterArr.push(hunt);
         }
     }
-    //io.sockets.emit("send matrix", matrix);
 }
-//
+//add new alien
+function addAlien() {
+    for (var i = 0; i < 2; i++) {
+    var x = Math.floor(Math.random() * matrix[0].length)
+    var y = Math.floor(Math.random() * matrix.length)
+        if (matrix[y][x] == 0) {
+            matrix[y][x] = 5
+            let al = new Alien(x, y);
+               alienArr.push(al);
+        }
+    }
+}
+//killthegrasseater
+function kill() {
+     for (let i = 0; i < grassEaterArr.length; i++) {
+        grassEaterArr[i].die();
+    }
+}
+
+
+//connect
 io.on('connection', function (socket) {
     socket.on("add predator", addPredator);
     socket.on("add hunter", addHunter);
     socket.on("add alien", addAlien);
+    socket.on("kill", kill);
 });
 
-
+//statistics
 var statistics = {};
 
 setInterval(function() {
@@ -209,5 +215,4 @@ setInterval(function() {
         console.log("send")
     })
 },1000)
-
 

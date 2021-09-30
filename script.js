@@ -1,8 +1,6 @@
 let socket = io();
 function setup() {
 
-    
-
     let side = 10;
 
     let matrix = [];
@@ -31,7 +29,7 @@ function drawCreatures(data) {
     alienCountElement.innerText = data.alienCounter;
     weathernameElement.innerText = "The weather is "+ data.weathername;
 
-    createCanvas(matrix[0].length * side, matrix.length * side);
+    createCanvas(matrix[0].length * side, matrix.length * side)
     background('#D3D3D3');
     noStroke()
 
@@ -79,7 +77,6 @@ function drawCreatures(data) {
         }
     }
     socket.on("data", drawCreatures);
- 
 }
 
 function addPredator() {
@@ -92,5 +89,13 @@ function addHunter() {
 function addAlien() {
     socket.emit("add alien")
 }
+function kill() {
+    socket.emit("kill")
+}
 
-
+/*function click(evt) {
+    let x = evt.pageX;
+    let y = evt.pageY;
+    console.log(x,y);
+ }
+ window.onclick = click;*/

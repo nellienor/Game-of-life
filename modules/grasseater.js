@@ -34,9 +34,9 @@ module.exports = class GrassEater extends LivingCreature {
 			this.energy -= 4;
 		} 
 		if (weath == "summer") {
-			this.energy += 2;
+			this.energy += 6;
 		}
-    }
+    } 
     die() {
         matrix[this.y][this.x] = 0;
         for (let index = 0; index < grassEaterArr.length; index++) {
