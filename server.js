@@ -50,7 +50,7 @@ function matrixGenerator(matrixSize, grassCount, grassEaterCount, predatorCount,
        matrix[y][x] = 5;
    }
 }
-matrixGenerator(50, 500, 50, 15,3,1);
+matrixGenerator(60, 600, 55, 15,3,1);
 
 //server
 var express = require('express');
@@ -152,7 +152,7 @@ setInterval(weather, 5000);
 
 //add new predator
 function addPredator() {
-    for (var i = 0; i < 4; i++) {
+    for (var i = 0; i < 5; i++) {
     var x = Math.floor(Math.random() * matrix[0].length)
     var y = Math.floor(Math.random() * matrix.length)
         if (matrix[y][x] == 0) {
@@ -186,10 +186,11 @@ function addAlien() {
         }
     }
 }
-//killthegrasseater
+//kill the grasseater
 function kill() {
-     for (let i = 0; i < grassEaterArr.length; i++) {
+     for (let i = 0; i <= 5; i++) {
         grassEaterArr[i].die();
+        console.log(grassEaterArr.length + "left");
     }
 }
 
